@@ -1,3 +1,5 @@
+import { loginFormSchema, type LoginFormValues } from "@/utils/validations";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
   Title,
@@ -9,9 +11,22 @@ import {
   Button,
 } from "@mantine/core";
 import { IconChevronRight, IconMail } from "@tabler/icons-react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isLoading },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginFormSchema),
+  });
+
+  const onSubmit = (data: LoginFormValues) => {
+    console.log(data);
+  };
+
   return (
     <Box w="90%" maw={550}>
       <Box>
@@ -21,29 +36,34 @@ export default function Login() {
         </Text>
       </Box>
 
-      <Box component="form" mt="xl">
+      <Box component="form" mt="xl" onSubmit={handleSubmit(onSubmit)}>
         <Stack gap="md" mb="xl">
           <TextInput
             id="email"
-            name="email"
             label="Email Address"
             leftSection={<IconMail size={16} />}
             placeholder="john@example.com"
             required
             autoFocus
+            {...register("email")}
+            error={errors.email?.message}
+            disabled={isLoading}
           />
           <PasswordInput
             id="password"
-            name="password"
             label="Password"
             required
+            {...register("password")}
+            error={errors.password?.message}
+            disabled={isLoading}
           />
         </Stack>
         <Button
           type="submit"
           fullWidth
           variant="gradient"
-          rightSection={<IconChevronRight size={16} />}>
+          rightSection={<IconChevronRight size={16} />}
+          loading={isLoading}>
           Continue
         </Button>
       </Box>
