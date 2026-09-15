@@ -7,7 +7,8 @@ import "@mantine/core/styles.css";
 import "@/index.css";
 import Home from "@/routes/home";
 import AuthLayout from "@/layouts/auth-layout";
-import Login from "./routes/login";
+import Login from "@/routes/login";
+import Register from "@/routes/register";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
           <Route index element={<Home />} />
           <Route element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
           </Route>
         </Routes>
       </BrowserRouter>
