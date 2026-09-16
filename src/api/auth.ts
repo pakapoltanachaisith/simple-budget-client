@@ -10,7 +10,7 @@ export const getCurrentUser = async (): Promise<User | null> => {
   }
 
   const { data } = await apiClient.get("/me");
-  return data;
+  return data.user;
 };
 
 export const login = async (email: string, password: string): Promise<User> => {

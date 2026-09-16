@@ -15,7 +15,7 @@ import {
 import { useForm } from "react-hook-form";
 
 import { loginFormSchema, type LoginFormValues } from "@/utils/validations";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login } from "@/api/auth";
 
 export default function LoginForm() {
@@ -23,10 +23,11 @@ export default function LoginForm() {
     resolver: zodResolver(loginFormSchema),
   });
 
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (value: LoginFormValues) => login(value.email, value.password),
     onSuccess: (data) => {
-      console.log(data);
+      queryClient.setQueryData(["auth"], data);
     },
   });
 
