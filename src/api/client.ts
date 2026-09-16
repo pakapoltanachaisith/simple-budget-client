@@ -12,3 +12,14 @@ apiClient.interceptors.request.use((config) => {
   }
   return config;
 });
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong.");
+    }
+
+    return Promise.reject(error);
+  },
+);
