@@ -1,9 +1,9 @@
-import { useAuth } from "@/hooks/use-auth";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { Center, Loader } from "@mantine/core";
 import { Outlet } from "react-router";
 
 export default function AppLayout() {
-  const { status } = useAuth();
+  const { status } = useCurrentUser();
 
   if (status === "pending") {
     return (

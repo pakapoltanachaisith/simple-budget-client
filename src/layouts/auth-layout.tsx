@@ -1,9 +1,9 @@
-import { useAuth } from "@/hooks/use-auth";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { Center, Container } from "@mantine/core";
 import { Navigate, Outlet } from "react-router";
 
 export default function AuthLayout() {
-  const { user } = useAuth();
+  const { user } = useCurrentUser();
 
   if (!!user) {
     return <Navigate to="/" />;
