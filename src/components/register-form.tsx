@@ -14,14 +14,17 @@ import {
   registerFormSchema,
   type RegisterFormValues,
 } from "@/utils/validations";
+import { useRegisterMutation } from "@/hooks/use-register-mutation";
 
 export default function RegisterForm() {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
   });
 
+  const registerMutation = useRegisterMutation();
+
   const onSubmit = (data: RegisterFormValues) => {
-    alert("Register Form submitted!");
+    registerMutation.mutate(data);
   };
 
   return (
@@ -31,6 +34,7 @@ export default function RegisterForm() {
           <TextInput
             {...form.register("name")}
             error={form.formState.errors.name?.message}
+            disabled={registerMutation.isPending}
             id="name"
             label="Name"
             w="100%"
@@ -40,6 +44,7 @@ export default function RegisterForm() {
           />
           <TextInput
             {...form.register("email")}
+            disabled={registerMutation.isPending}
             error={form.formState.errors.email?.message}
             id="email"
             label="Email Address"
@@ -51,6 +56,7 @@ export default function RegisterForm() {
         </Flex>
         <PasswordInput
           {...form.register("password")}
+          disabled={registerMutation.isPending}
           error={form.formState.errors.password?.message}
           id="password"
           label="Password"
@@ -58,6 +64,7 @@ export default function RegisterForm() {
         />
         <PasswordInput
           {...form.register("password_confirmation")}
+          disabled={registerMutation.isPending}
           error={form.formState.errors.password_confirmation?.message}
           id="password_confirmation"
           label="Confirm Password"
@@ -68,7 +75,9 @@ export default function RegisterForm() {
         type="submit"
         fullWidth
         variant="gradient"
-        rightSection={<IconChevronRight size={16} />}>
+        rightSection={<IconChevronRight size={16} />}
+        loading={registerMutation.isPending}
+        disabled={registerMutation.isPending}>
         Create Account
       </Button>
     </Box>
