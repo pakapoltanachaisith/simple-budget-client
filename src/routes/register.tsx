@@ -1,15 +1,7 @@
-import {
-  Box,
-  Title,
-  Text,
-  Flex,
-  Stack,
-  TextInput,
-  PasswordInput,
-  Button,
-} from "@mantine/core";
-import { IconChevronRight, IconMail } from "@tabler/icons-react";
+import { Box, Title, Text, Flex } from "@mantine/core";
 import { Link } from "react-router";
+
+import RegisterForm from "@/components/register-form";
 
 export default function Register() {
   return (
@@ -21,49 +13,7 @@ export default function Register() {
         </Text>
       </Box>
 
-      <Box component="form" mt="xl">
-        <Stack gap="md" mb="xl">
-          <Flex direction={{ base: "column", md: "row" }} gap="md">
-            <TextInput
-              id="name"
-              name="name"
-              label="Name"
-              w="100%"
-              required
-              autoFocus
-              placeholder="John Doe"
-            />
-            <TextInput
-              id="email"
-              name="email"
-              label="Email Address"
-              leftSection={<IconMail size={16} />}
-              placeholder="john@example.com"
-              required
-              w="100%"
-            />
-          </Flex>
-          <PasswordInput
-            id="password"
-            name="password"
-            label="Password"
-            required
-          />
-          <PasswordInput
-            id="password_confirmation"
-            name="password_confirmation"
-            label="Confirm Password"
-            required
-          />
-        </Stack>
-        <Button
-          type="submit"
-          fullWidth
-          variant="gradient"
-          rightSection={<IconChevronRight size={16} />}>
-          Create Account
-        </Button>
-      </Box>
+      <RegisterForm />
 
       <Flex gap="xs" justify="center" mt="xl">
         <Text size="sm" c="dimmed">
