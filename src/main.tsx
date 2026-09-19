@@ -11,7 +11,7 @@ import AuthLayout from "@/layouts/auth-layout";
 import Login from "@/routes/login";
 import Register from "@/routes/register";
 import AppLayout from "@/layouts/app-layout";
-import DashboardLayout from "@/layouts/dashboard-layout";
+import DashboardLayout from "@/layouts/dashboard";
 
 const queryClient = new QueryClient();
 
