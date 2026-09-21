@@ -1,9 +1,12 @@
 import CreateForm from "@/components/incomes/create-form";
+import { useCreateIncomeMutation } from "@/hooks/incomes/use-create-income-mutation";
 import { Box, Button, Title } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { Link } from "react-router";
 
 export default function Create() {
+  const { mutate, isPending } = useCreateIncomeMutation();
+
   return (
     <Box p={{ base: "md", lg: "xl" }}>
       <Button
@@ -21,7 +24,7 @@ export default function Create() {
       </Title>
 
       <Box>
-        <CreateForm onSubmit={console.log} loading={false} />
+        <CreateForm onSubmit={mutate} loading={isPending} />
       </Box>
     </Box>
   );

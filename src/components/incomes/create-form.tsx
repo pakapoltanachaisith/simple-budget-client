@@ -1,15 +1,13 @@
-import {
-  createIncomeScheme,
-  type CreateIncomeValues,
-} from "@/utils/validations";
+import { createIncomeScheme } from "@/utils/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, NumberInput, Stack, TextInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
+import dayjs from "dayjs";
 import { useForm, Controller } from "react-hook-form";
 
 interface CreateFormProps {
-  onSubmit: (values: CreateIncomeValues) => void;
+  onSubmit: (values: { amount: number; note?: string; date: string }) => void;
   loading: boolean;
 }
 
@@ -24,7 +22,11 @@ export default function CreateForm({ onSubmit, loading }: CreateFormProps) {
   return (
     <form
       onSubmit={handleSubmit((values) =>
-        onSubmit({ ...values, amount: values.amount * 100 }),
+        onSubmit({
+          ...values,
+          amount: values.amount * 100,
+          date: dayjs(values.date).format("YYYY-MM-DD"),
+        }),
       )}>
       <Box>
         <Stack gap="lg">
@@ -71,6 +73,7 @@ export default function CreateForm({ onSubmit, loading }: CreateFormProps) {
               <DatePickerInput
                 {...field}
                 label="Date"
+                valueFormat="DD MMM YYYY"
                 rightSection={<IconCalendar size={16} />}
                 error={fieldState.error?.message}
               />
