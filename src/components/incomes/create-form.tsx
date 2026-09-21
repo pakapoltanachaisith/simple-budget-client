@@ -22,7 +22,10 @@ export default function CreateForm({ onSubmit, loading }: CreateFormProps) {
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit((values) =>
+        onSubmit({ ...values, amount: values.amount * 100 }),
+      )}>
       <Box>
         <Stack gap="lg">
           <Controller
