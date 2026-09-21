@@ -23,3 +23,8 @@ export const createIncome = async (data: CreateIncomeArgs): Promise<Income> => {
   const response = await apiClient.post("/v1/incomes", data);
   return response.data.data;
 };
+
+export const getIncome = async (id: string | number): Promise<Income> => {
+  const response = await apiClient.get(`/v1/incomes/${id}`);
+  return response.data.data;
+};

@@ -18,6 +18,7 @@ import {
   IconPencil,
   IconTrash,
 } from "@tabler/icons-react";
+import { Link } from "react-router";
 
 interface IncomeListProps {
   items: Income[];
@@ -47,7 +48,9 @@ function IncomeList({ items }: IncomeListProps) {
                 mt="lg"
                 rightSection={<IconEye size={16} />}
                 size="xs"
-                variant="outline">
+                variant="outline"
+                component={Link}
+                to={`/incomes/${item.id}`}>
                 View
               </Button>
             </Box>
