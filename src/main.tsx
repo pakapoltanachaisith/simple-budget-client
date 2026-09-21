@@ -12,6 +12,7 @@ import Login from "@/routes/login";
 import Register from "@/routes/register";
 import AppLayout from "@/layouts/app-layout";
 import DashboardLayout from "@/layouts/dashboard";
+import IncomeIndex from "./routes/incomes";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,9 @@ createRoot(document.getElementById("root")!).render(
             <Route element={<AppLayout />}>
               <Route element={<DashboardLayout />}>
                 <Route index element={<Home />} />
+                <Route path="incomes">
+                  <Route index element={<IncomeIndex />} />
+                </Route>
               </Route>
               <Route element={<AuthLayout />}>
                 <Route path="login" element={<Login />} />

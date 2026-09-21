@@ -12,8 +12,8 @@ import {
   Tooltip,
   VisuallyHidden,
 } from "@mantine/core";
-import { IconHome, IconLogout } from "@tabler/icons-react";
-import { NavLink } from "react-router";
+import { IconHome, IconLogout, IconWallet } from "@tabler/icons-react";
+import NavbarLink from "./navbar-link";
 
 interface NavbarProps {
   user: User;
@@ -25,16 +25,13 @@ export default function Navbar({ user }: NavbarProps) {
   return (
     <AppShell.Navbar>
       <AppShell.Section grow>
-        <NavLink to="/" style={{ textDecoration: "none" }}>
-          {({ isActive }) => (
-            <MNavLink
-              label="Home"
-              leftSection={<IconHome size={18} />}
-              active={isActive}
-            />
-          )}
-        </NavLink>
+        <NavbarLink path="/" label="Home" icon={<IconHome size={18} />} />
+
+        <MNavLink label="Incomes" leftSection={<IconWallet />}>
+          <NavbarLink path="/incomes" label="My Incomes" />
+        </MNavLink>
       </AppShell.Section>
+
       <AppShell.Section>
         <Divider />
         <Flex py="sm" px="md" h="100%" align="center">
