@@ -1,15 +1,15 @@
-import { getIncomes } from "@/api/incomes";
 import IncomeList from "@/components/incomes/income-list";
-import { Alert, Box, Button, Flex, Title } from "@mantine/core";
+import { useIncomes } from "@/hooks/use-incomes";
+import { Alert, Box, Button, Flex, Pagination, Title } from "@mantine/core";
 import { IconAlertCircle, IconPlus } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 
 export default function IncomeIndex() {
-  const { data, isSuccess, isPending, isError } = useQuery({
-    queryKey: ["incomes"],
-    queryFn: getIncomes,
-  });
+  const [searhParams, setSearchParams] = useSearchParams({ page: "1" });
+
+  const currentPage = parseInt(searhParams.get("page")!);
+
+  const { data, isSuccess, isPending, isError } = useIncomes(currentPage);
 
   return (
     <Box p={{ base: "md", lg: "xl" }}>
@@ -39,6 +39,17 @@ export default function IncomeIndex() {
       {isSuccess && (
         <Box mt="xl">
           <IncomeList items={data.data} />
+          {data.meta.last_page > 1 && (
+            <Flex mt="xl" justify="center">
+              <Pagination
+                total={data.meta.last_page}
+                value={currentPage}
+                onChange={(value) =>
+                  setSearchParams({ page: value.toString() })
+                }
+              />
+            </Flex>
+          )}
         </Box>
       )}
     </Box>
