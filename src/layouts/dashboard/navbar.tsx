@@ -12,8 +12,14 @@ import {
   Tooltip,
   VisuallyHidden,
 } from "@mantine/core";
-import { IconHome, IconLogout, IconWallet } from "@tabler/icons-react";
+import {
+  IconHome,
+  IconLogout,
+  IconPlus,
+  IconWallet,
+} from "@tabler/icons-react";
 import NavbarLink from "./navbar-link";
+import { useLocation } from "react-router";
 
 interface NavbarProps {
   user: User;
@@ -21,14 +27,30 @@ interface NavbarProps {
 
 export default function Navbar({ user }: NavbarProps) {
   const logout = useLogoutMutation();
+  const location = useLocation();
 
   return (
     <AppShell.Navbar>
       <AppShell.Section grow>
-        <NavbarLink path="/" label="Home" icon={<IconHome size={18} />} />
+        <NavbarLink
+          path="/"
+          label="Home"
+          icon={<IconHome size={18} />}
+          active={location.pathname === "/"}
+        />
 
         <MNavLink label="Incomes" leftSection={<IconWallet />}>
-          <NavbarLink path="/incomes" label="My Incomes" />
+          <NavbarLink
+            path="/incomes"
+            label="My Incomes"
+            active={location.pathname === "/incomes"}
+          />
+          <NavbarLink
+            path="/incomes/create"
+            label="New Income"
+            icon={<IconPlus size={16} />}
+            active={location.pathname === "/incomes/create"}
+          />
         </MNavLink>
       </AppShell.Section>
 

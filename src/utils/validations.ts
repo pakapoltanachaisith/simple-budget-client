@@ -20,3 +20,18 @@ export const registerFormSchema = z
   });
 
 export type RegisterFormValues = z.infer<typeof registerFormSchema>;
+
+export const createIncomeScheme = z.object({
+  amount: z
+    .number()
+    .positive()
+    .min(0.01)
+    .refine((value) => {
+      const decimalPart = value.toString().split(".")[1];
+      return !decimalPart || decimalPart.length <= 2;
+    }),
+  note: z.string().trim().max(255).optional(),
+  date: z.date(),
+});
+
+export type CreateIncomeValues = z.infer<typeof createIncomeScheme>;
