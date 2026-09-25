@@ -14,6 +14,7 @@ import DashboardLayout from "@/layouts/dashboard";
 import IncomeIndex from "./routes/incomes";
 import CreateIncome from "./routes/incomes/create";
 import ShowIncome from "./routes/incomes/show";
+import EditIncome from "./routes/incomes/edit";
 
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
@@ -44,6 +45,7 @@ createRoot(document.getElementById("root")!).render(
                   <Route index element={<IncomeIndex />} />
                   <Route path="create" element={<CreateIncome />} />
                   <Route path=":incomeId" element={<ShowIncome />} />
+                  <Route path=":incomeId/edit" element={<EditIncome />} />
                 </Route>
               </Route>
               <Route element={<AuthLayout />}>

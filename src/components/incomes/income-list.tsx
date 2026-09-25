@@ -72,7 +72,10 @@ function IncomeList({ items }: IncomeListProps) {
                     </ActionIcon>
                   </Menu.Target>
                   <Menu.Dropdown>
-                    <Menu.Item leftSection={<IconPencil size={14} />}>
+                    <Menu.Item
+                      leftSection={<IconPencil size={14} />}
+                      component={Link}
+                      to={`/incomes/${item.id}/edit`}>
                       Edit
                     </Menu.Item>
                     <Menu.Item
