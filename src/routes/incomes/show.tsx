@@ -1,17 +1,12 @@
-import { getIncome } from "@/api/incomes";
 import IncomeDetails from "@/components/incomes/income-details";
+import { useIncome } from "@/hooks/incomes/use-income";
 import { Alert, Box, Button, Flex, Title } from "@mantine/core";
 import { IconAlertCircle, IconArrowLeft } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router";
 
 export default function Show() {
   const { incomeId } = useParams();
-
-  const { isSuccess, isError, isPending, data, error } = useQuery({
-    queryKey: ["income", incomeId],
-    queryFn: () => getIncome(incomeId!),
-  });
+  const { isSuccess, isError, isPending, data, error } = useIncome(incomeId!);
 
   return (
     <Box p={{ base: "md", lg: "xl" }}>
@@ -43,7 +38,12 @@ export default function Show() {
         <Box>
           <IncomeDetails {...data} />
           <Flex gap="sm" mt="xl">
-            <Button variant="default">Edit</Button>
+            <Button
+              variant="default"
+              component={Link}
+              to={`/incomes/${incomeId}/edit`}>
+              Edit
+            </Button>
             <Button color="red">Delete</Button>
           </Flex>
         </Box>
